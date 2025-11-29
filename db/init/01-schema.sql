@@ -15,3 +15,9 @@ CREATE TABLE IF NOT EXISTS purchases (
   product_id INTEGER NOT NULL REFERENCES products(id),
   created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
+
+CREATE INDEX IF NOT EXISTS idx_purchases_user_id
+  ON purchases (user_id);
+
+CREATE INDEX IF NOT EXISTS idx_purchases_product_id
+  ON purchases (product_id);
