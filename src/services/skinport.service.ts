@@ -2,10 +2,10 @@ import { ItemPrice } from '../types/items';
 import { SkinportItem } from '../types/skinport';
 import { getCache, setCache } from './cache.service';
 
-const CACHE_KEY = 'skinport:items:730:EUR';
-const CACHE_TTL_SECONDS = 60;
 const DEFAULT_APP_ID = '730';
 const DEFAULT_CURRENCY = 'EUR';
+const CACHE_KEY = `skinport:items:${DEFAULT_APP_ID}:${DEFAULT_CURRENCY}`;
+const CACHE_TTL_SECONDS = 60;
 
 const baseUrl = process.env.SKINPORT_BASE_URL ?? 'https://api.skinport.com/v1';
 

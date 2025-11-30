@@ -48,7 +48,7 @@ export async function updateUserBalance(
   const rows = await db<UserRow[]>`
     UPDATE users
     SET balance = balance - ${amountToSubtract}
-    WHERE id = ${userId}
+    WHERE id = ${userId} AND balance >= ${amountToSubtract}
     RETURNING id, balance
   `;
 

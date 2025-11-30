@@ -35,16 +35,11 @@ export async function purchaseProduct(
       throw new NotFoundError('Product not found');
     }
 
-    const userBalance = parseNumeric(user.balance, 'user balance');
     const productPrice = parseNumeric(product.price, 'product price');
-
-    if (userBalance < productPrice) {
-      throw new InsufficientFundsError('Insufficient funds');
-    }
 
     const updatedUser = await updateUserBalance(tx, user.id, productPrice);
     if (!updatedUser) {
-      throw new Error('Failed to update user balance');
+      throw new InsufficientFundsError('Insufficient funds');
     }
 
     const purchase = await insertPurchase(tx, user.id, product.id);
@@ -55,7 +50,7 @@ export async function purchaseProduct(
       userId: user.id,
       productId: product.id,
       purchaseId: purchase.id,
-      balance: Number(updatedBalance.toFixed(2)),
+      balance: updatedBalance,
     };
 
     return result;
